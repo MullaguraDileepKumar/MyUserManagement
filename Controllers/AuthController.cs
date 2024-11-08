@@ -7,5 +7,6 @@ namespace UserManagement.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        public string UserName {get;set;}
     }
 }
