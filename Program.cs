@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using UserManagement.Core.DbContext;
 using UserManagement.Core.Entities;
+using UserManagement.Core.Interfaces;
+using UserManagement.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,13 +24,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-    //Dependency Injection
+//Dependency Injection
 
-    //Add Identity
-    builder.Services
+builder.Services.AddScoped<ILogService, LogService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+//Add Identity
+builder.Services
             .AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
 // Config Identity
 builder.Services.Configure<IdentityOptions>(options =>
 {
