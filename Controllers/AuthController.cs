@@ -7,6 +7,6 @@ namespace UserManagement.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        
+        //Adding comment for git push check
     }
 }
