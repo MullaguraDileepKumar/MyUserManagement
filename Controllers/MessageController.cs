@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UserManagement.Core.Constants;
 using UserManagement.Core.Dtos.Message;
 using UserManagement.Core.Interfaces;
 
@@ -36,5 +37,14 @@ namespace UserManagement.Controllers
             var messages = await _messageService.GetMyMessagesAsync(User);
             return Ok(messages);
         }
+
+        [HttpGet]
+        [Authorize(Roles = StaticUserRoles.OwnerAdmin)]
+        public async Task<ActionResult<IEnumerable<GetMessageDto>>> GetMessages()
+        {
+            var messages = await _messageService.GetMessagesAsync();
+            return Ok(messages);
+        }
+
     }
 }
